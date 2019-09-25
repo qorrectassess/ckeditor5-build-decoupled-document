@@ -7,9 +7,8 @@
 import DecoupledEditorBase from '@ckeditor/ckeditor5-editor-decoupled/src/decouplededitor';
 
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
+import Font from '@ckeditor/ckeditor5-font/src/font';
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
-import FontSize from '@ckeditor/ckeditor5-font/src/fontsize';
-import FontFamily from '@ckeditor/ckeditor5-font/src/fontfamily';
 import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight';
 import UploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat';
@@ -26,6 +25,7 @@ import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
+import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
 import Link from '@ckeditor/ckeditor5-link/src/link';
 import List from '@ckeditor/ckeditor5-list/src/list';
 import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
@@ -33,6 +33,8 @@ import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import MathType from '@wiris/mathtype-ckeditor5/src/plugin';
+import Indent from '@ckeditor/ckeditor5-indent/src/indent';
 
 export default class DecoupledEditor extends DecoupledEditorBase {}
 
@@ -40,8 +42,7 @@ export default class DecoupledEditor extends DecoupledEditorBase {}
 DecoupledEditor.builtinPlugins = [
 	Essentials,
 	Alignment,
-	FontSize,
-	FontFamily,
+	Font,
 	Highlight,
 	UploadAdapter,
 	Autoformat,
@@ -58,16 +59,20 @@ DecoupledEditor.builtinPlugins = [
 	ImageStyle,
 	ImageToolbar,
 	ImageUpload,
+	ImageResize,
 	Link,
 	List,
 	MediaEmbed,
 	Paragraph,
 	PasteFromOffice,
 	Table,
-	TableToolbar
+	TableToolbar,
+	Indent,
+	MathType
 ];
 
 // Editor configuration.
+			// 'mediaEmbed',
 DecoupledEditor.defaultConfig = {
 	toolbar: {
 		items: [
@@ -75,12 +80,17 @@ DecoupledEditor.defaultConfig = {
 			'|',
 			'fontsize',
 			'fontfamily',
+			'fontColor',
+			'fontBackgroundColor',
 			'|',
 			'bold',
 			'italic',
 			'underline',
 			'strikethrough',
 			'highlight',
+			'|',
+			'indent',
+			'outdent', 
 			'|',
 			'alignment',
 			'|',
@@ -91,7 +101,9 @@ DecoupledEditor.defaultConfig = {
 			'blockquote',
 			'imageUpload',
 			'insertTable',
-			'mediaEmbed',
+			'|',
+			'MathType',
+        	'ChemType',
 			'|',
 			'undo',
 			'redo'
@@ -109,7 +121,8 @@ DecoupledEditor.defaultConfig = {
 			'imageStyle:alignRight',
 			'|',
 			'imageTextAlternative'
-		]
+		],
+		resizeUnit: 'px'
 	},
 	table: {
 		contentToolbar: [
@@ -118,6 +131,13 @@ DecoupledEditor.defaultConfig = {
 			'mergeTableCells'
 		]
 	},
+	indentBlock: {
+		classes: [
+			'custom-block-indent-a', // First step - smallest indentation.
+			'custom-block-indent-b',
+			'custom-block-indent-c'  // Last step - biggest indentation.
+		]
+	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
-	language: 'en'
+	language: 'ar'
 };
